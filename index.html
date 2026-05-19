@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VetCare - Medicina Veterinária Premium</title>
+    <style>
+        /* Reset e Variáveis */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #4A00E0 0%, #8E2DE2 50%, #00F2FE 100%);
+            --soft-purple: #f3edff;
+            --mint-accent: #00F2FE;
+            --dark-blue: #0A1128;
+            --text-dark: #2D3748;
+            --text-muted: #718096;
+            --bg-light: #ffffff;
+            --card-shadow: 0 10px 30px rgba(74, 0, 224, 0.06);
+            --transition: all 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+        }
+
+        body {
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Fixo */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            padding: 15px 5%;
+            display: table;
+        }
+
+        .header-container {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .logo {
+            float: left;
+            font-size: 22px;
+            font-weight: 700;
+            color: #4A00E0;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, #4A00E0, #00F2FE);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav {
+            float: right;
+            margin-top: 5px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            margin: 0 15px;
+            font-weight: 500;
+            font-size: 15px;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: #8E2DE2;
+        }
+
+        .btn-header {
+            background: linear-gradient(135deg, #4A00E0, #8E2DE2);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-left: 20px;
+            box-shadow: 0 4px 15px rgba(74, 0, 224, 0.2);
+        }
+
+        .btn-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 0, 224, 0.3);
+        }
+
+        /* Seções Gerais */
+        section {
+            padding: 100px 10%;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #8E2DE2;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 2px;
+            margin-bottom: 45px;
+        }
+
+        /* Hero Section */
+        #inicio {
+            padding-top: 180px;
+            padding-bottom: 120px;
+            background: radial-gradient(circle at 80% 20%, rgba(142, 45, 226, 0.1) 0%, rgba(0, 242, 254, 0.05) 50%, rgba(255, 255, 255, 0) 100%);
+            text-align: center;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(142, 45, 226, 0.08);
+            color: #8E2DE2;
+            font-weight: 600;
+            font-size: 13px;
+            border-radius: 50px;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        #inicio h1 {
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--dark-blue);
+            max-width: 800px;
+            margin: 0 auto 25px auto;
+        }
+
+        #inicio h1 span {
+            background: linear-gradient(135deg, #4A00E0, #8E2DE2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #inicio p {
+            font-size: 18px;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+        }
+
+        .cta-container {
+            margin-bottom: 50px;
+        }
+
+        .btn-main {
+            display: inline-block;
+            text-decoration: none;
+            background: linear-gradient(135deg, #4A00E0, #8E2DE2);
+            color: white;
+            padding: 16px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            box-shadow: 0 10px 25px rgba(74, 0, 224, 0.25);
+            transition: var(--transition);
+            margin: 0 10px;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(74, 0, 224, 0.35);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            text-decoration: none;
+            background: white;
+            color: #4A00E0;
+            padding: 16px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            border: 2px solid #e2d9f3;
+            transition: var(--transition);
+            margin: 0 10px;
+        }
+
+        .btn-secondary:hover {
+            border-color: #4A00E0;
+            background: rgba(74, 0, 224, 0.02);
+        }
+
+        .hero-img-container {
+            margin-top: 30px;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* SVG Ilustrativo Premium Incorporado */
+        .hero-illustration {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            filter: drop-shadow(0 20px 40px rgba(74, 0, 224, 0.12));
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Seção Sobre Mim */
+        #sobre-mim {
+            background: #ffffff;
+            display: table;
+            width: 100%;
+        }
+
+        .sobre-container {
+            display: table-row;
+        }
+
+        .sobre-col-foto {
+            display: table-cell;
+            width: 45%;
+            vertical-align: middle;
+            padding-right: 5%;
+        }
+
+        .sobre-col-texto {
+            display: table-cell;
+            width: 55%;
+            vertical-align: middle;
+            text-align: left;
+        }
+
+        .foto-placeholder {
+            width: 100%;
+            max-width: 380px;
+            height: 440px;
+            background: linear-gradient(135deg, #f6f1ff 0%, #eefdff 100%);
+            border: 3px dashed #d6c7f5;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #8E2DE2;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            box-shadow: var(--card-shadow);
+        }
+
+        .foto-placeholder:hover {
+            border-color: #4A00E0;
+            background: linear-gradient(135deg, #ede4ff 0%, #e2faff 100%);
+        }
+
+        .foto-placeholder svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 15px;
+            opacity: 0.7;
+        }
+
+        .foto-placeholder p {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .sobre-col-texto h2 {
+            font-size: 36px;
+            color: var(--dark-blue);
+            margin-bottom: 20px;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+        .sobre-col-texto h2 span {
+            color: #4A00E0;
+        }
+
+        .sobre-col-texto p {
+            font-size: 16px;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        /* Seção Serviços Diferenciados */
+        #servicos {
+            background: linear-gradient(180deg, #ffffff 0%, #fbf9ff 100%);
+            text-align: center;
+        }
+
+        .grid-servicos {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .card-servico {
+            display: inline-block;
+            width: 28%;
+            margin: 1.5%;
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            vertical-align: top;
+            text-align: left;
+            border: 1px solid rgba(142, 45, 226, 0.03);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-servico:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(74, 0, 224, 0.12);
+        }
+
+        .card-servico::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #4A00E0, #00F2FE);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .card-servico:hover::before {
+            opacity: 1;
+        }
+
+        .icon-box {
+            width: 55px;
+            height: 55px;
+            background: rgba(142, 45, 226, 0.07);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4A00E0;
+            margin-bottom: 25px;
+        }
+
+        .card-servico h3 {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 12px;
+        }
+
+        .card-servico p {
+            font-size: 14.5px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Faixa de Chamada Intermediária (CTA) */
+        .cta-banner {
+            background: linear-gradient(135deg, #4A00E0 0%, #8E2DE2 100%);
+            border-radius: 24px;
+            padding: 50px;
+            color: white;
+            margin-top: 60px;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(74, 0, 224, 0.25);
+            display: table;
+            width: 100%;
+        }
+
+        .cta-banner-text {
+            display: table-cell;
+            vertical-align: middle;
+            width: 70%;
+        }
+
+        .cta-banner-btn {
+            display: table-cell;
+            vertical-align: middle;
+            width: 30%;
+            text-align: right;
+        }
+
+        .cta-banner h3 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .cta-banner p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .btn-white {
+            display: inline-block;
+            text-decoration: none;
+            background: white;
+            color: #4A00E0;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        .btn-white:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Footer */
+        footer {
+            background: #060B18;
+            color: #A0AEC0;
+            padding: 80px 5% 30px 5%;
+            font-size: 14px;
+        }
+
+        .footer-container {
+            display: table;
+            width: 100%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 50px;
+            margin-bottom: 30px;
+        }
+
+        .footer-col {
+            display: table-cell;
+            width: 25%;
+            vertical-align: top;
+            padding: 0 20px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 30px;
+            height: 2px;
+            background: #00F2FE;
+        }
+
+        .footer-col p {
+            line-height: 1.8;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: #A0AEC0;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: #718096;
+        }
+
+        .footer-logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo span {
+            background: linear-gradient(135deg, #8E2DE2, #00F2FE);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Responsividade Básica */
+        @media(max-width: 900px) {
+            .card-servico {
+                width: 45%;
+                margin: 2.5%;
+            }
+            .sobre-col-foto, .sobre-col-texto {
+                display: block;
+                width: 100%;
+            }
+            .sobre-col-foto {
+                margin-bottom: 40px;
+                text-align: center;
+            }
+            .foto-placeholder {
+                margin: 0 auto;
+            }
+            .footer-col {
+                display: block;
+                width: 100%;
+                margin-bottom: 35px;
+            }
+            .cta-banner {
+                display: block;
+                text-align: center;
+            }
+            .cta-banner-text, .cta-banner-btn {
+                display: block;
+                width: 100%;
+            }
+            .cta-banner-btn {
+                margin-top: 25px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Fixo -->
+    <header>
+        <div class="header-container">
+            <a href="#inicio" class="logo">Vet<span>Care</span></a>
+            <nav>
+                <a href="#inicio">Início</a>
+                <a href="#sobre-mim">Sobre Mim</a>
+                <a href="#servicos">Diferenciais</a>
+                <a href="#contato" class="btn-header">Me Conheça</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio">
+        <div class="hero-tag">CUIDADO, AMOR E CIÊNCIA</div>
+        <h1>Saúde para eles, <br><span>tranquilidade para você.</span></h1>
+        <p>Medicina veterinária com carinho, tecnologia de ponta e atenção individualizada para garantir a melhor qualidade de vida ao seu companheiro.</p>
+        
+        <div class="cta-container">
+            <a href="#contato" class="btn-main">Agendar Consulta</a>
+            <a href="#servicos" class="btn-secondary">Nossos Serviços</a>
+        </div>
+
+        <div class="hero-img-container">
+            <!-- SVG Premium sutil representando cuidado integrado com pets -->
+            <svg class="hero-illustration" viewBox="0 0 500 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="250" cy="150" r="130" fill="url(#paint0_radial)" opacity="0.4"/>
+                <path d="M180 180 C 200 130, 300 130, 320 180" stroke="#8E2DE2" stroke-width="4" stroke-linecap="round"/>
+                <path d="M210 150 C 230 120, 270 120, 290 150" stroke="#00F2FE" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="250" cy="140" r="15" fill="#4A00E0" opacity="0.1"/>
+                <defs>
+                    <radialGradient id="paint0_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(250 150) rotate(90) scale(130)">
+                        <stop offset="0%" stop-color="#8E2DE2" stop-opacity="0.3"/>
+                        <stop offset="100%" stop-color="#00F2FE" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Seção Sobre Mim -->
+    <section id="sobre-mim">
+        <div class="sobre-container">
+            <div class="sobre-col-foto">
+                <div class="foto-placeholder">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                        <circle cx="12" cy="13" r="4"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="sobre-col-texto">
+                <div class="hero-tag" style="margin-bottom:15px;">SOBRE MIM</div>
+                <h2>Prazer, eu sou uma futura <span>médica veterinária</span></h2>
+                <p>E irei desenvolver uma página que falará sobre meu trabalho e também fornecerá ao usuário um sistema de triagem inteligente e rápido para descobrir se o pet precisará de uma consulta urgente.Para a minha profissão do futuro, essa página fará parte de uma plataforma completa de gestão clínica e financeira que irei implementar. O objetivo será usar os recursos da tecnologia para automatizar os processos burocráticos, permitindo que eu foque no que mais importa: o cuidado e a saúde dos animais</p>
+                <a href="#contato" class="btn-main" style="margin-left:0; margin-top:15px;">Fale Comigo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Serviços / Diferenciais -->
+    <section id="servicos">
+        <div class="section-subtitle">O Que Eu Faço</div>
+        <div class="section-title">Cuidado que vai além da consulta</div>
+        
+        <div class="grid-servicos">
+            <!-- Card 1 -->
+            <div class="card-servico">
+                <div class="icon-box">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </div>
+                <h3>Ciência + Carinho</h3>
+                <p>União perfeita entre medicina baseada em evidências diagnósticas e uma abordagem sensível e amorosa durante todo o atendimento.</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card-servico">
+                <div class="icon-box">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <h3>Cuidado Individual</h3>
+                <p>Cada paciente tem seu tempo. Consultas estendidas e detalhadas, respeitando a personalidade e limites de cada animalzinho.</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card-servico">
+                <div class="icon-box">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h3>Acompanhamento</h3>
+                <p>Suporte contínuo pós-consulta para que você se sinta seguro em todas as etapas do tratamento ou prevenção na sua casa.</p>
+            </div>
+        </div>
+
+        <!-- Faixa de CTA Interna -->
+        <div class="cta-banner">
+            <div class="cta-banner-text">
+                <h3>Vamos cuidar juntos de quem te faz feliz?</h3>
+                <p>Clique no botão ao lado para iniciar um atendimento humanizado e exclusivo.</p>
+            </div>
+            <div class="cta-banner-btn">
+                <a href="#contato" class="btn-white">Agendar Agora</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contato -->
+    <footer id="contato">
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="footer-logo">Vet<span>Care</span></div>
+                <p>Medicina veterinária humanizada com o equilíbrio perfeito de amor, inovação e excelência técnica.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegação</h4>
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#sobre-mim">Sobre Mim</a></li>
+                    <li><a href="#servicos">Diferenciais</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Serviços</h4>
+                <ul>
+                    <li>Consultas Dedicadas</li>
+                    <li>Medicina Preventiva</li>
+                    <li>Planos de Bem-Estar</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contato</h4>
+                <p>📍 Sua Cidade - UF</p>
+                <p>📞 (11) 99999-9999</p>
+                <p>✉️ seuemail@vet.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 VetCare. Todos os direitos reservados. Projetado com carinho e dedicação.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
